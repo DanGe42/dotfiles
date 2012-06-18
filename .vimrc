@@ -8,6 +8,7 @@ set expandtab ts=4 sw=4 sts=4 ai
 autocmd Filetype html setlocal ts=2 sts=2 sw=2
 autocmd Filetype css setlocal ts=2 sts=2 sw=2
 autocmd Filetype python setlocal nosmartindent textwidth=80 smarttab
+autocmd Filetype ruby setlocal ts=2 sts=2 sw=2 nosmartindent smarttab
 """"
 
 " Everything related to syntax highlighting
@@ -15,11 +16,12 @@ syntax on
 filetype plugin indent on
 
 " View settings
-colorscheme koehler
+" colorscheme koehler
 set cursorline
 highlight CursorLine ctermbg=8 cterm=NONE
 set number      " Line numbers
 set showcmd     " Show current command on status bar
+set ruler
 
 " Searching
 set incsearch
@@ -54,4 +56,16 @@ au Filetype html,xml,xsl source ~/.vim/scripts/closetag.vim
 " Map NERDTree to \t
 nmap <silent> <Leader>t :NERDTreeToggle<CR>
 
+" Ctag (doesn't ever seem to make a difference...)
 let Tlist_Ctags_Cmd="/usr/bin/ctags"
+
+" Automatically change current directory to current file
+" autocmd BufEnter * silent! lcd %:p:h
+
+" Pathogen
+call pathogen#infect()
+
+" Solarized
+set background=dark
+colorscheme solarized
+let g:solarized_contrast="high"
