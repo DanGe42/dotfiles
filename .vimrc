@@ -67,5 +67,5 @@ call pathogen#infect()
 
 " Solarized
 set background=dark
-colorscheme solarized
 let g:solarized_contrast="high"
+colorscheme solarized
