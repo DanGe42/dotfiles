@@ -1,0 +1,15 @@
+[user]
+	name = Daniel Ge
+	email = daniel@pagerduty.com
+[core]
+	editor = vim
+[alias]
+	addp = add -p
+	stat = status -sb
+	wdiff = diff --word-diff
+	graph = log --pretty=oneline --graph
+	ignore = update-index --assume-unchanged
+	unignore = update-index --no-assume-unchanged
+	ignored = !git ls-files -v | grep "^[a-z]"
+[color]
+	ui = 1
