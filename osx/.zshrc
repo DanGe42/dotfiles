@@ -37,10 +37,21 @@ alias l='ls -CF'
 
 alias less='less -r'
 
+alias rtest='bundle exec ruby -Itest'
+
+alias grep='grep -n'
+alias egrep='egrep -n'
+
+. ~/functions.sh
+. ~/bin/z.sh
+function precmd() {
+    _z --add "$(pwd -P)"
+}
+
+alias ctags="`brew --prefix`/bin/ctags"
+
 source $ZSH/oh-my-zsh.sh
 unsetopt correct_all
-
-export JASMINE_BROWSER=chrome bundle exec rake test
 
 # Customize to your needs...
 export PATH=$HOME/.rvm/gems/ruby-1.8.7-p358-rubyee/bin:$HOME/.rvm/gems/ruby-1.8.7-p358-rubyee@global/bin:$HOME/.rvm/rubies/ruby-1.8.7-p358-rubyee/bin:$HOME/.rvm/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin:/usr/local/git/bin:/opt/local/bin:$HOME/.rvm/bin:$HOME/bin
