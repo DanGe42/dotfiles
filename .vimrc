@@ -1,5 +1,22 @@
 set nocompatible
 
+"""" Vundle setup """"
+filetype off
+
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+
+Bundle 'gmarik/vundle'
+
+" Own bundles
+Bundle 'altercation/vim-colors-solarized'
+Bundle 'kchmck/vim-coffee-script'
+Bundle 'digitaltoad/vim-jade'
+Bundle 'mattn/zencoding-vim'
+Bundle 'pangloss/vim-javascript'
+
+"""" End Vundle setup """"
+
 " Default settings for tabbing
 set smartindent
 set expandtab ts=4 sw=4 sts=4 ai
@@ -9,6 +26,9 @@ autocmd Filetype html setlocal ts=2 sts=2 sw=2
 autocmd Filetype css setlocal ts=2 sts=2 sw=2
 autocmd Filetype python setlocal nosmartindent textwidth=80 smarttab
 autocmd Filetype ruby setlocal ts=2 sts=2 sw=2 nosmartindent smarttab
+autocmd Filetype jade setlocal ts=2 sts=2 sw=2
+autocmd Filetype javascript setlocal ts=2 sts=2 sw=2
+autocmd Filetype tex setlocal ts=4 sts=4 sw=4
 """"
 
 " Everything related to syntax highlighting
@@ -62,10 +82,7 @@ let Tlist_Ctags_Cmd="/usr/bin/ctags"
 " Automatically change current directory to current file
 " autocmd BufEnter * silent! lcd %:p:h
 
-" Pathogen
-call pathogen#infect()
-
 " Solarized
-set background=dark
+set background=light
 let g:solarized_contrast="high"
 colorscheme solarized
