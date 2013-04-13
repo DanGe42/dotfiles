@@ -1,6 +1,6 @@
 [user]
 	name = Daniel Ge
-	email = daniel@pagerduty.com
+	email = dange@seas.upenn.edu
 [core]
 	editor = vim
 [alias]
@@ -14,5 +14,7 @@
 	ignored = !git ls-files -v | grep "^[a-z]"
 	show-files = show --pretty="format:" --name-only
 	stashes = stash list
+	opush = push origin
+	mopush = push origin master
 [color]
 	ui = 1
