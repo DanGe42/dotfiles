@@ -57,6 +57,10 @@ set tw=80
 
 set backspace=2
 
+" Sane splitting behavior
+set splitbelow
+set splitright
+
 """" More specific settings for tabbing
 autocmd Filetype html setlocal ts=2 sts=2 sw=2 indentkeys-=*<Return>
 autocmd Filetype php setlocal ts=2 sts=2 sw=2 indentkeys-=*<Return>
