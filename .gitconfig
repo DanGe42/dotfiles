@@ -4,7 +4,6 @@
 [core]
 	editor = vim
 [alias]
-	addp = add -p
 	stat = status -sb
 	wdiff = diff --word-diff
 	cdiff = diff --cached
@@ -16,5 +15,10 @@
 	stashes = stash list
 	opush = push origin
 	mopush = push origin master
+	ap = add -p
+	co = checkout
+	cm = commit
 [color]
 	ui = 1
+[push]
+	default = upstream
