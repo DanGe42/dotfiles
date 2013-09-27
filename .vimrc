@@ -22,7 +22,10 @@ Bundle 'tpope/vim-rails'
 Bundle 'tpope/vim-haml'
 Bundle 'tpope/vim-markdown'
 Bundle 'gregsexton/MatchTag'
-Bundle 'Superbil/llvm.vim'
+"Bundle 'Superbil/llvm.vim'
+Bundle 'pbrisbin/html-template-syntax'
+Bundle 'rkulla/pydiction'
+Bundle 'klen/python-mode'
 
 " Other tpope shenanigans
 Bundle 'tpope/vim-fugitive'
@@ -38,7 +41,7 @@ Bundle 'sjl/gundo.vim'
 Bundle 'benmills/vimux'
 Bundle 'sjbach/lusty'
 Bundle 'vim-scripts/Align'
-Bundle 'Lokaltog/vim-powerline'
+Bundle 'bling/vim-airline'
 
 """" End Vundle setup """"
 
@@ -53,7 +56,7 @@ set wildignore=*.o,*.pyc,*.hi,*.swp,*.class
 set smartindent
 set expandtab ts=4 sw=4 sts=4 ai
 
-set tw=80
+set textwidth=80
 
 set backspace=2
 
@@ -61,11 +64,19 @@ set backspace=2
 set splitbelow
 set splitright
 
+let g:pydiction_location='~/.vim/bundle/pydiction/complete-dict'
+
+" Everything related to syntax highlighting
+set rtp+=/usr/local/Cellar/go/1.0.3/misc/vim/
+syntax on
+filetype plugin indent on
+
 """" More specific settings for tabbing
 autocmd Filetype html setlocal ts=2 sts=2 sw=2 indentkeys-=*<Return>
 autocmd Filetype php setlocal ts=2 sts=2 sw=2 indentkeys-=*<Return>
 autocmd Filetype css setlocal ts=2 sts=2 sw=2
-autocmd Filetype python setlocal nosmartindent textwidth=80 smarttab
+autocmd Filetype python setlocal nosmartindent
+autocmd BufRead *.py setlocal nosmartindent
 autocmd Filetype ruby setlocal ts=2 sts=2 sw=2 nosmartindent smarttab
 autocmd Filetype jade setlocal ts=2 sts=2 sw=2
 autocmd Filetype javascript setlocal ts=2 sts=2 sw=2
@@ -74,12 +85,8 @@ autocmd Filetype tex setlocal ts=4 sts=4 sw=4
 autocmd Filetype haskell setlocal ts=2 sts=2 sw=2
 autocmd Filetype gitcommit setlocal tw=72
 autocmd Filetype verilog setlocal ts=3 sts=3 sw=3
+autocmd Filetype c setlocal ts=4 sts=4 sw=4 smarttab
 """"
-
-" Everything related to syntax highlighting
-set rtp+=/usr/local/Cellar/go/1.0.3/misc/vim/
-syntax on
-filetype plugin indent on
 
 " View settings
 " colorscheme koehler
@@ -112,7 +119,10 @@ set hidden
 set colorcolumn=80
 
 " Powerline settings
-let g:Powerline_symbols = 'fancy'
+" let g:Powerline_symbols = 'fancy'
+
+" vim-airline settings
+set ttimeoutlen=50
 set laststatus=2
 set encoding=utf-8
 
@@ -149,11 +159,13 @@ let Tlist_Ctags_Cmd="/usr/bin/ctags"
 " Automatically change current directory to current file
 " autocmd BufEnter * silent! lcd %:p:h
 
+" Keyboard remappings
 " gundo
 nnoremap <F5> :GundoToggle<CR>
-
 " :noh
 nnoremap <F9> :nohlsearch<CR>
+" :YcmForceCompileAndDiagnostics
+nnoremap <S-F5> :YcmForceCompileAndDiagnostics<CR>
 
 " Solarized
 set background=light
