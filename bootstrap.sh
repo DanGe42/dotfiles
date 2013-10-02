@@ -9,8 +9,10 @@ mkdir -p ~/bin
 ln -s $PWD/bin/z/z.sh ~/bin
 ln -s $PWD/bin/z/z.1 ~/bin
 
+ln -s $PWD/.tmux.conf ~/
+
 # Set up Vim
-setup/vim-bootstrap.sh
+setup/vim.sh
 
 # Set up Git
 setup/git.sh
