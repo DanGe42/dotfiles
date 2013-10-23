@@ -26,6 +26,7 @@ Bundle 'gregsexton/MatchTag'
 Bundle 'pbrisbin/html-template-syntax'
 Bundle 'rkulla/pydiction'
 Bundle 'klen/python-mode'
+Bundle 'jnwhiteh/vim-golang'
 
 " Other tpope shenanigans
 Bundle 'tpope/vim-fugitive'
@@ -93,6 +94,7 @@ autocmd Filetype c setlocal ts=4 sts=4 sw=4 smarttab
 set cursorline
 highlight CursorLine ctermbg=8 cterm=NONE
 set number      " Line numbers
+set relativenumber
 set showcmd     " Show current command on status bar
 set ruler
 
