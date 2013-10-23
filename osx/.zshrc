@@ -29,29 +29,32 @@ COMPLETION_WAITING_DOTS="true"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(brew bundler extract gem github git-flow nyan osx pow powder rbenv ruby rvm terminalapp)
+plugins=(brew bundler extract gem heroku node npm nyan pip \
+    rbenv ruby rvm rails zsh-syntax-highlighting vagrant)
 
-alias ll='ls -alF'
+alias ll='ls -alhF'
 alias la='ls -A'
 alias l='ls -CF'
 
 alias less='less -r'
 
-alias rtest='bundle exec ruby -Itest'
-
-alias grep='grep -n'
-alias egrep='egrep -n'
-
-. ~/functions.sh
-. ~/bin/z.sh
-function precmd() {
-    _z --add "$(pwd -P)"
-}
-
-alias ctags="`brew --prefix`/bin/ctags"
-
 source $ZSH/oh-my-zsh.sh
 unsetopt correct_all
+unalias sl
+
+source ~/bin/z.sh
+
+# Start an HTTP server from a directory, optionally specifying the port
+function server() {
+    local port="${1:-8000}"
+    ( sleep 2; open "http://localhost:${port}/" ) &
+    python -m SimpleHTTPServer "$port"
+}
+
+alias pg-start='pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start'
+alias pg-stop='pg_ctl -D /usr/local/var/postgres stop -s -m fast'
+alias wget-dl='wget -m -k -p -np'
+
 
 # Customize to your needs...
-export PATH=$HOME/.rvm/gems/ruby-1.8.7-p358-rubyee/bin:$HOME/.rvm/gems/ruby-1.8.7-p358-rubyee@global/bin:$HOME/.rvm/rubies/ruby-1.8.7-p358-rubyee/bin:$HOME/.rvm/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin:/usr/local/git/bin:/opt/local/bin:$HOME/.rvm/bin:$HOME/bin
+export PATH="$HOME/bin:$PATH"
