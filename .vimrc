@@ -1,50 +1,54 @@
 set nocompatible
 
-"""" Vundle setup """"
-filetype off
+"""" NeoBundle setup """"
+if has('vim_starting')
+    set nocompatible               " Be iMproved
+    set runtimepath+=~/.vim/bundle/neobundle.vim/
+endif
 
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+call neobundle#rc(expand('~/.vim/bundle/'))
 
-let g:ycm_key_detailed_diagnostics = '<leader>D'
-
-Bundle 'gmarik/vundle'
+" Let NeoBundle manage NeoBundle
+NeoBundleFetch 'Shougo/neobundle.vim'
 
 " Solarized
-Bundle 'altercation/vim-colors-solarized'
+NeoBundle 'altercation/vim-colors-solarized'
 
 " Language-specific
-Bundle 'jrk/vim-ocaml'
-Bundle 'kchmck/vim-coffee-script'
-Bundle 'pangloss/vim-javascript'
-Bundle 'digitaltoad/vim-jade'
-Bundle 'tpope/vim-rails'
-Bundle 'tpope/vim-haml'
-Bundle 'tpope/vim-markdown'
-Bundle 'gregsexton/MatchTag'
-"Bundle 'Superbil/llvm.vim'
-Bundle 'pbrisbin/html-template-syntax'
-Bundle 'rkulla/pydiction'
-Bundle 'klen/python-mode'
-Bundle 'jnwhiteh/vim-golang'
+NeoBundleLazy 'jrk/vim-ocaml'
+NeoBundleLazy 'kchmck/vim-coffee-script'
+NeoBundleLazy 'pangloss/vim-javascript'
+NeoBundleLazy 'digitaltoad/vim-jade'
+NeoBundle 'tpope/vim-rails'
+NeoBundleLazy 'tpope/vim-haml'
+NeoBundleLazy 'tpope/vim-markdown'
+NeoBundle 'gregsexton/MatchTag'
+NeoBundleLazy 'Superbil/llvm.vim'
+NeoBundleLazy 'pbrisbin/html-template-syntax'
+NeoBundleLazy 'rkulla/pydiction'
+NeoBundleLazy 'klen/python-mode', '0.6.19'
+NeoBundleLazy 'jnwhiteh/vim-golang'
+NeoBundleLazy 'git://git.code.sf.net/p/vim-latex/vim-latex'
 
 " Other tpope shenanigans
-Bundle 'tpope/vim-fugitive'
-Bundle 'tpope/vim-endwise'
-"Bundle 'tpope/vim-repeat'
-"Bundle 'tpope/vim-speeddating'
-"Bundle 'tpope/vim-commentary'
+NeoBundle 'tpope/vim-fugitive'
+NeoBundle 'tpope/vim-endwise'
+"NeoBundle 'tpope/vim-repeat'
+"NeoBundle 'tpope/vim-speeddating'
+"NeoBundle 'tpope/vim-commentary'
 
 " Misc
-Bundle 'scrooloose/syntastic'
-Bundle 'Valloric/YouCompleteMe'
-Bundle 'sjl/gundo.vim'
-Bundle 'benmills/vimux'
-Bundle 'sjbach/lusty'
-Bundle 'vim-scripts/Align'
-Bundle 'bling/vim-airline'
+NeoBundle 'scrooloose/syntastic', '3.1.0'
+NeoBundle 'Valloric/YouCompleteMe', '0a05ba8c'
+NeoBundle 'sjl/gundo.vim'
+NeoBundle 'benmills/vimux'
+NeoBundle 'sjbach/lusty'
+" NeoBundle 'vim-scripts/Align'
+NeoBundle 'junegunn/vim-easy-align'
+NeoBundle 'bling/vim-airline'
 
-"""" End Vundle setup """"
+filetype plugin indent on
+"""" End NeoBundle setup """"
 
 " Place backup/swp files somewhere else
 set backupdir=~/.vimtmp/backup
@@ -53,12 +57,7 @@ set dir=~/.vimtmp/swp
 " Ignore these files when tabbing
 set wildignore=*.o,*.pyc,*.hi,*.swp,*.class
 
-" Default settings for tabbing
-set smartindent
-set expandtab ts=4 sw=4 sts=4 ai
-
-set textwidth=80
-
+" Enable backspace to delete from insertion point
 set backspace=2
 
 " Sane splitting behavior
@@ -68,25 +67,72 @@ set splitright
 let g:pydiction_location='~/.vim/bundle/pydiction/complete-dict'
 
 " Everything related to syntax highlighting
-set rtp+=/usr/local/Cellar/go/1.0.3/misc/vim/
 syntax on
-filetype plugin indent on
 
-"""" More specific settings for tabbing
-autocmd Filetype html setlocal ts=2 sts=2 sw=2 indentkeys-=*<Return>
-autocmd Filetype php setlocal ts=2 sts=2 sw=2 indentkeys-=*<Return>
-autocmd Filetype css setlocal ts=2 sts=2 sw=2
-autocmd Filetype python setlocal nosmartindent
-autocmd BufRead *.py setlocal nosmartindent
-autocmd Filetype ruby setlocal ts=2 sts=2 sw=2 nosmartindent smarttab
-autocmd Filetype jade setlocal ts=2 sts=2 sw=2
-autocmd Filetype javascript setlocal ts=2 sts=2 sw=2
-autocmd Filetype ocaml setlocal ts=2 sts=2 sw=2
-autocmd Filetype tex setlocal ts=4 sts=4 sw=4
-autocmd Filetype haskell setlocal ts=2 sts=2 sw=2
-autocmd Filetype gitcommit setlocal tw=72
-autocmd Filetype verilog setlocal ts=3 sts=3 sw=3
-autocmd Filetype c setlocal ts=4 sts=4 sw=4 smarttab
+" Default settings for tabbing
+set nosmartindent
+set expandtab tabstop=4 shiftwidth=4 softtabstop=4 autoindent
+
+set textwidth=80
+
+" Auto-completions
+set omnifunc=syntaxcomplete#Complete
+
+"""" Language specific settings
+function DGSetIndent(spaces)
+    """ Sets indentation. """
+    let &tabstop=a:spaces
+    let &softtabstop=a:spaces
+    let &shiftwidth=a:spaces
+endfunction
+
+augroup lang_setup
+    autocmd!
+
+    " NeoBundle
+    autocmd FileType coffee     NeoBundleSource "vim-coffee-script"
+    autocmd FileType go         NeoBundleSource "vim-golang"
+    autocmd FileType haml       NeoBundleSource "vim-haml"
+    autocmd FileType jade       NeoBundleSource "vim-jade"
+    autocmd FileType javascript NeoBundleSource "vim-javascript"
+    autocmd FileType markdown   NeoBundleSource "vim-markdown"
+    autocmd FileType ocaml      NeoBundleSource "vim-ocaml"
+    autocmd FileType python     NeoBundleSource "pydiction"
+    autocmd FileType python     NeoBundleSource "python-mode"
+    autocmd FileType tex        NeoBundleSource "vim-latex"
+
+    " Auto-complete via omnifunc
+    autocmd Filetype css setlocal omnifunc=csscomplete#CompleteCSS
+    autocmd Filetype html setlocal omnifunc=htmlcomplete#CompleteTags
+    autocmd Filetype javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+    autocmd Filetype python setlocal omnifunc=pythoncomplete#Complete
+
+    " Indentation
+    autocmd Filetype c          call DGSetIndent(4)
+    autocmd Filetype css        call DGSetIndent(2)
+    autocmd Filetype haskell    call DGSetIndent(2)
+    autocmd Filetype html       call DGSetIndent(2)
+    autocmd Filetype jade       call DGSetIndent(2)
+    autocmd Filetype javascript call DGSetIndent(2)
+    autocmd Filetype ocaml      call DGSetIndent(2)
+    autocmd Filetype php        call DGSetIndent(2)
+    autocmd Filetype ruby       call DGSetIndent(2)
+    autocmd Filetype tex        call DGSetIndent(4)
+    autocmd Filetype verilog    call DGSetIndent(3)
+
+    autocmd Filetype c setlocal cindent
+
+    " Misc
+    autocmd Filetype gitcommit setlocal tw=72
+    autocmd Filetype c setlocal smarttab
+    autocmd Filetype ruby setlocal nosmartindent
+    autocmd Filetype python setlocal nosmartindent
+    autocmd BufRead *.py setlocal nosmartindent
+    autocmd Filetype html setlocal indentkeys-=*<Return>
+    autocmd Filetype php setlocal indentkeys-=*<Return>
+
+augroup END
+
 """"
 
 " View settings
@@ -105,13 +151,6 @@ set smartcase
 set hlsearch
 set showmatch
 
-" Auto-completions
-set ofu=syntaxcomplete#Complete
-autocmd FileType python set omnifunc=pythoncomplete#Complete
-autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
-autocmd FileType css set omnifunc=csscomplete#CompleteCSS
-
 
 """" Miscellaneous
 
@@ -127,6 +166,8 @@ set colorcolumn=80
 set ttimeoutlen=50
 set laststatus=2
 set encoding=utf-8
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled = 1
 
 " Get rid of trailing whitespace in certain files
 autocmd FileType c,cpp,cc,html,css,py,hs,js,clj autocmd BufWritePre <buffer> :%s/\s\+$//e
@@ -140,14 +181,14 @@ let g:haddock_browser_callformat = "%s %s"
 " OCaml settings
 let g:syntastic_ocaml_use_ocamlc = 1
 
+" Python settings
+let g:pymode_lint_checker = 'pyflakes,mccabe'
+let g:pymode_lint_ignore = 'E501,C0110'
+
 " Zen settings (for HTML+XML)
 let g:user_zen_settings = {
 \  'indentation': '  '
 \}
-
-" HTML/XML settings
-let g:closetag_html_style=1
-au Filetype html,xml,xsl source ~/.vim/scripts/closetag.vim 
 
 " Map NERDTree to \t
 nmap <silent> <Leader>t :NERDTreeToggle<CR>
