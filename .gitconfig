@@ -7,6 +7,7 @@
 	stat = status -sb
 	wdiff = diff --word-diff
 	cdiff = diff --cached
+	idiff = diff --ignore-space-at-eol -b -w --ignore-blank-lines
 	graph = log --oneline --decorate --graph
 	ignore = update-index --assume-unchanged
 	unignore = update-index --no-assume-unchanged
