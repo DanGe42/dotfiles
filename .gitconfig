@@ -5,6 +5,7 @@
 	editor = vim
 [alias]
 	stat = status -sb
+	s = status -sb
 	wdiff = diff --word-diff
 	cdiff = diff --cached
 	idiff = diff --ignore-space-at-eol -b -w --ignore-blank-lines
@@ -19,7 +20,13 @@
 	ap = add -p
 	co = checkout
 	cm = commit
+	f = fetch
+	m = merge
+	p = push
+	d = diff
 [color]
 	ui = 1
 [push]
 	default = upstream
+[merge]
+    defaultToUpstream = true
