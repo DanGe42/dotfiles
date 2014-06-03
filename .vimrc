@@ -39,13 +39,14 @@ NeoBundle 'tpope/vim-endwise'
 
 " Misc
 NeoBundle 'scrooloose/syntastic'
-NeoBundle 'Valloric/YouCompleteMe', '9f3a3e30'
+NeoBundle 'Valloric/YouCompleteMe'
 NeoBundle 'sjl/gundo.vim'
 NeoBundle 'benmills/vimux'
 NeoBundle 'sjbach/lusty'
 " NeoBundle 'vim-scripts/Align'
 NeoBundle 'junegunn/vim-easy-align'
 NeoBundle 'bling/vim-airline'
+NeoBundle 'bronson/vim-trailing-whitespace'
 
 filetype plugin indent on
 """" End NeoBundle setup """"
@@ -64,6 +65,7 @@ set backspace=2
 set splitbelow
 set splitright
 
+let g:pymode_rope_complete_on_dot=0
 let g:pydiction_location='~/.vim/bundle/pydiction/complete-dict'
 
 " Everything related to syntax highlighting
@@ -140,7 +142,7 @@ augroup END
 set cursorline
 highlight CursorLine ctermbg=8 cterm=NONE
 set number      " Line numbers
-set relativenumber
+"set relativenumber
 set showcmd     " Show current command on status bar
 set ruler
 

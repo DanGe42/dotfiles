@@ -38,6 +38,8 @@ alias l='ls -CF'
 
 alias less='less -r'
 
+alias vi='vim'
+
 source $ZSH/oh-my-zsh.sh
 unsetopt correct_all
 unalias sl
