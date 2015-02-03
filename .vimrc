@@ -2,11 +2,10 @@ set nocompatible
 
 """" NeoBundle setup """"
 if has('vim_starting')
-    set nocompatible               " Be iMproved
     set runtimepath+=~/.vim/bundle/neobundle.vim/
 endif
 
-call neobundle#rc(expand('~/.vim/bundle/'))
+call neobundle#begin(expand('~/.vim/bundle/'))
 
 " Let NeoBundle manage NeoBundle
 NeoBundleFetch 'Shougo/neobundle.vim'
@@ -29,6 +28,8 @@ NeoBundleLazy 'klen/python-mode'
 NeoBundleLazy 'jnwhiteh/vim-golang'
 NeoBundleLazy 'git://git.code.sf.net/p/vim-latex/vim-latex'
 NeoBundle 'wting/rust.vim'
+NeoBundle 'vim-pandoc/vim-pandoc'
+NeoBundle 'vim-pandoc/vim-pandoc-syntax'
 
 " Other tpope shenanigans
 NeoBundle 'tpope/vim-fugitive'
@@ -47,6 +48,8 @@ NeoBundle 'sjbach/lusty'
 NeoBundle 'junegunn/vim-easy-align'
 NeoBundle 'bling/vim-airline'
 NeoBundle 'bronson/vim-trailing-whitespace'
+
+call neobundle#end()
 
 filetype plugin indent on
 """" End NeoBundle setup """"
@@ -132,6 +135,7 @@ augroup lang_setup
     autocmd BufRead *.py setlocal nosmartindent
     autocmd Filetype html setlocal indentkeys-=*<Return>
     autocmd Filetype php setlocal indentkeys-=*<Return>
+    autocmd Filetype markdown setlocal tw=80
 
 augroup END
 
