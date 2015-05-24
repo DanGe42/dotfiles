@@ -1,3 +1,6 @@
 [submodule "bin/z"]
 	path = bin/z
 	url = git://github.com/rupa/z.git
+[submodule "bin/zgen"]
+	path = bin/zgen
+	url = git@github.com:tarjoilija/zgen.git
