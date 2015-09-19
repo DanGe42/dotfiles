@@ -10,12 +10,19 @@ ln -s $PWD/bin/z/z.sh ~/bin
 ln -s $PWD/bin/z/z.1 ~/bin
 
 ln -s $PWD/dotfiles/tmux.conf ~/.tmux.conf
-
-# Set up Vim
-setup/vim.sh
-
-# Set up Git
-setup/git.sh
+ln -s $PWD/themes ~/.themes
 
 # Set up ZSH
-setup/zsh.sh
+git clone git://github.com/tarjoilija/zgen ~/bin/zgen
+ln -s $PWD/dotfiles/zshrc ~/.zshrc
+
+# Set up Git
+ln -s $PWD/dotfiles/gitconfig ~/.gitconfig
+
+# Set up Vim
+ln -s $PWD/dotfiles/vimrc ~/.vimrc
+mkdir -p ~/.vimtmp/backup
+mkdir -p ~/.vimtmp/swp
+
+git clone git://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
+vim +BundleInstall +qall
