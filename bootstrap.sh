@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -eu
+
 # Update submodules first
 git submodule init
 git submodule update
@@ -15,6 +17,7 @@ ln -s $PWD/themes ~/.themes
 # Set up ZSH
 git clone git://github.com/tarjoilija/zgen ~/bin/zgen
 ln -s $PWD/dotfiles/zshrc ~/.zshrc
+ln -s $PWD/dotfiles/aliases ~/.aliases
 
 # Set up Git
 ln -s $PWD/dotfiles/gitconfig ~/.gitconfig
@@ -25,4 +28,4 @@ mkdir -p ~/.vimtmp/backup
 mkdir -p ~/.vimtmp/swp
 
 git clone git://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
-vim +BundleInstall +qall
+vim +NeoBundleInstall +qall
