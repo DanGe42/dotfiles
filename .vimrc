@@ -25,9 +25,10 @@ NeoBundle 'gregsexton/MatchTag'
 NeoBundleLazy 'pbrisbin/html-template-syntax'
 NeoBundleLazy 'rkulla/pydiction'
 NeoBundleLazy 'klen/python-mode'
-NeoBundleLazy 'jnwhiteh/vim-golang'
+NeoBundleLazy 'fatih/vim-go'
 NeoBundleLazy 'git://git.code.sf.net/p/vim-latex/vim-latex'
-NeoBundle 'wting/rust.vim'
+NeoBundle 'the-lambda-church/coquille'
+NeoBundleLazy 'wting/rust.vim'
 NeoBundle 'vim-pandoc/vim-pandoc'
 NeoBundle 'vim-pandoc/vim-pandoc-syntax'
 
@@ -96,7 +97,7 @@ augroup lang_setup
 
     " NeoBundle
     autocmd FileType coffee     NeoBundleSource "vim-coffee-script"
-    autocmd FileType go         NeoBundleSource "vim-golang"
+    autocmd FileType go         NeoBundleSource "vim-go"
     autocmd FileType haml       NeoBundleSource "vim-haml"
     autocmd FileType jade       NeoBundleSource "vim-jade"
     autocmd FileType javascript NeoBundleSource "vim-javascript"
@@ -105,6 +106,7 @@ augroup lang_setup
     autocmd FileType python     NeoBundleSource "pydiction"
     autocmd FileType python     NeoBundleSource "python-mode"
     autocmd FileType tex        NeoBundleSource "vim-latex"
+    autocmd FileType rust       NeoBundleSource "rust.vim"
 
     " Auto-complete via omnifunc
     autocmd Filetype css setlocal omnifunc=csscomplete#CompleteCSS

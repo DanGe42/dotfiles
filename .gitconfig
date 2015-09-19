@@ -1,6 +1,6 @@
 [user]
 	name = Daniel Ge
-	email = dange@seas.upenn.edu
+	email = daniel@dge.io
 [core]
 	editor = vim
 [alias]
@@ -17,6 +17,7 @@
 	stashes = stash list
 	opush = push origin
 	mopush = push origin master
+    undo-merge = reset --merge ORIG_HEAD
 	ap = add -p
 	co = checkout
 	cm = commit
@@ -27,6 +28,6 @@
 [color]
 	ui = 1
 [push]
-	default = upstream
+	default = current
 [merge]
     defaultToUpstream = true

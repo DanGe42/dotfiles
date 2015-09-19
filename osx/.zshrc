@@ -46,13 +46,13 @@ function server() {
 
 source $HOME/.aliases
 
-# Customize to your needs...
-export EC2_HOME="$HOME/bin/ec2/"
-export EC2_CERT="$HOME/.ec2/cert.pem"
-export EC2_PRIVATE_KEY="$HOME/.ec2/access.pem"
-export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
-export PATH="$HOME/bin:$PATH"
-export PATH="$PATH:$EC2_HOME/bin"
+export GOPATH="$HOME/go"
 
-PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
-export PATH="$PATH:$HOME/.cabal/bin"
+# Customize to your needs...
+PATH="/usr/local/bin:/usr/local/sbin:$PATH"
+PATH="$HOME/bin:$PATH"
+PATH="$PATH:$GOPATH/bin"
+
+PATH=$PATH:$HOME/.rvm/bin
+PATH="$PATH:$HOME/.cabal/bin"
+export PATH=$PATH
