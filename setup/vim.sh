@@ -1,6 +1,6 @@
 #!/bin/sh
 
-ln -s $PWD/.vimrc ~/
+ln -s $PWD/dotfiles/vimrc ~/.vimrc
 mkdir -p ~/.vimtmp/backup
 mkdir -p ~/.vimtmp/swp
 

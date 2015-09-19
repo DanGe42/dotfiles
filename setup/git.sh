@@ -1,3 +1,3 @@
 #!/bin/sh
 
-ln -s $PWD/.gitconfig ~/
+ln -s $PWD/dotfiles/gitconfig ~/.gitconfig
