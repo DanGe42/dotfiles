@@ -11,7 +11,9 @@ mkdir -p ~/bin
 ln -s $PWD/bin/z/z.sh ~/bin
 ln -s $PWD/bin/z/z.1 ~/bin
 
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 ln -s $PWD/dotfiles/tmux.conf ~/.tmux.conf
+
 ln -s $PWD/themes ~/.themes
 
 # Set up ZSH
