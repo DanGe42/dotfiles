@@ -2,7 +2,7 @@
 	name = Daniel Ge
 	email = daniel@dge.io
 [core]
-	editor = vim
+	editor = nvim
 [alias]
 	stat = status -sb
 	s = status -sb
