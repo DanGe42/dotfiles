@@ -1,90 +1,192 @@
-set nocompatible
-
-"""" NeoBundle setup """"
-if has('vim_starting')
-    set runtimepath+=~/.vim/bundle/neobundle.vim/
+if &compatible
+    set nocompatible
 endif
 
-call neobundle#begin(expand('~/.vim/bundle/'))
+" dein.vim {{{
+set runtimepath+=~/.vim/bundles/repos/github.com/Shougo/dein.vim
 
-" Let NeoBundle manage NeoBundle
-NeoBundleFetch 'Shougo/neobundle.vim'
+" Required:
+if dein#load_state('~/.vim/bundles')
+    call dein#begin('~/.vim/bundles')
 
-" Solarized
-NeoBundle 'altercation/vim-colors-solarized'
+    " Let dein manage dein
+    call dein#add('~/.vim/bundles/repos/github.com/Shougo/dein.vim')
 
-" Language-specific
-NeoBundleLazy 'jrk/vim-ocaml'
-NeoBundleLazy 'kchmck/vim-coffee-script'
-NeoBundleLazy 'pangloss/vim-javascript'
-NeoBundleLazy 'digitaltoad/vim-jade'
-NeoBundle 'tpope/vim-rails'
-NeoBundleLazy 'tpope/vim-haml'
-NeoBundleLazy 'tpope/vim-markdown'
-NeoBundle 'gregsexton/MatchTag'
-NeoBundleLazy 'pbrisbin/html-template-syntax'
-NeoBundleLazy 'rkulla/pydiction'
-NeoBundleLazy 'klen/python-mode'
-NeoBundleLazy 'fatih/vim-go'
-NeoBundleLazy 'git://git.code.sf.net/p/vim-latex/vim-latex'
-NeoBundle 'the-lambda-church/coquille'
-NeoBundleLazy 'wting/rust.vim'
-NeoBundle 'vim-pandoc/vim-pandoc'
-NeoBundle 'vim-pandoc/vim-pandoc-syntax'
+    " Solarized
+    call dein#add('altercation/vim-colors-solarized')
 
-" Other tpope shenanigans
-NeoBundle 'tpope/vim-fugitive'
-NeoBundle 'tpope/vim-endwise'
-"NeoBundle 'tpope/vim-repeat'
-"NeoBundle 'tpope/vim-speeddating'
-"NeoBundle 'tpope/vim-commentary'
+    " Language-specific
+    call dein#add('pangloss/vim-javascript')
+    call dein#add('tpope/vim-rails')
+    " Highlights matching HTML tag when cursor is on a tag
+    call dein#add('gregsexton/MatchTag')
+    " tab-complete Python code
+    call dein#add('rkulla/pydiction')
+    " pylint/rope/pyflakes/pep8/etc integration
+    call dein#add('klen/python-mode')
+    call dein#add('fatih/vim-go')
+    call dein#add('vim-latex/vim-latex')
+    "call dein#add('vim-pandoc/vim-pandoc')
+    "call dein#add('vim-pandoc/vim-pandoc-syntax')
+    call dein#add('jplaut/vim-arduino-ino')
 
-" Misc
-NeoBundle 'scrooloose/syntastic'
-NeoBundle 'Valloric/YouCompleteMe'
-NeoBundle 'sjl/gundo.vim'
-NeoBundle 'benmills/vimux'
-NeoBundle 'sjbach/lusty'
-" NeoBundle 'vim-scripts/Align'
-NeoBundle 'junegunn/vim-easy-align'
-NeoBundle 'bling/vim-airline'
-NeoBundle 'bronson/vim-trailing-whitespace'
+    " Git integration
+    call dein#add('tpope/vim-fugitive')
+    " Add ending keyword for certain structures in certain languages
+    call dein#add('tpope/vim-endwise')
 
-call neobundle#end()
+    " Syntax checking
+    call dein#add('vim-syntastic/syntastic')
+    " Fuzzy-search completion engine
+    " Set up with ./install.py
+    "   --clang-completer for C-family languages
+    "   --gocode-completer for Go
+    "   --tern-completer for JS (requires Node + npm)
+    call dein#add('Valloric/YouCompleteMe')
+    " Visualize vim undo tree
+    call dein#add('sjl/gundo.vim')
+    " Filesystem, buffer explorer
+    call dein#add('sjbach/lusty')
+    " Alignment plugin
+    call dein#add('junegunn/vim-easy-align')
+    " Status/tabline
+    call dein#add('bling/vim-airline')
+    " Highlight trailing whitespace
+    call dein#add('bronson/vim-trailing-whitespace')
+
+    call dein#end()
+    call dein#save_state()
+endif
 
 filetype plugin indent on
-"""" End NeoBundle setup """"
 
+" If you want to install not installed plugins on startup.
+"if dein#check_install()
+"  call dein#install()
+"endif
+" }}}
+
+" Colors {{{
+syntax enable
+
+" Solarized
+set background=light
+let g:solarized_contrast="high"
+colorscheme solarized
+" }}}
+
+" Spaces and Tabs {{{
+set tabstop=4       " number of visual spaces per TAB
+set softtabstop=4   " number of spaces in tab when editing
+set expandtab       " tabs are spaces
+set shiftwidth=4    " sets >>, <<, == behavior; also affects autoindent
+
+set nosmartindent   " automatically inserts one extra level of indentation in
+                    " some cases, but interferes with some plugins, so this is
+                    " disabled
+
+set autoindent      " copy indentation from previous line when starting new line
+" }}}
+
+" Editing behavior {{{
+set textwidth=80    " constrain to 80-character lines
+set backspace=2     " Enable backspace to delete from insertion point
+
+" Get rid of trailing whitespace in certain files
+autocmd FileType c,cpp,cc,html,css,py,hs,js,clj autocmd BufWritePre <buffer> :%s/\s\+$//e
+" }}}
+
+" UI Layout {{{
+set number          " show line numbers
+set showcmd         " Show current command on status bar
+set cursorline      " highlight current line
+" CursorLine by default is underline. We want background highlight. This is
+" dark grey. To be used in conjunction with solarized.
+" Strangely enough, with Neovim + dein.vim, this does the opposite of what I
+" want
+"highlight CursorLine ctermbg=8 cterm=NONE
+set ruler           " tells us line and column number (lower right)
+set colorcolumn=80  " Show 80-character column
+
+set wildmenu    " visual autocomplete for command menu
+set lazyredraw  " redraw only when we need to
+
+set showmatch   " highlight matching [{()}]
+" }}}
+
+" Searching {{{
+set incsearch   " search as characters are entered
+set hlsearch    " highlight matches
+" turn off search highlight
+nnoremap <leader><space> :nohlsearch<CR>
+nnoremap <F9> :nohlsearch<CR>
+
+set ignorecase  " case-insensitve search
+set smartcase   " if there is a capital letter, then do case-sensitive search
+" }}}
+
+" Folding {{{
+set foldenable          " enable folding
+set foldlevelstart=10   " open most folds by default (excl very nested ones)
+set foldnestmax=10      " 10 nested fold max
+set foldmethod=indent   " fold based on indent level
+" }}}
+
+" Line shortcuts {{{
+" move vertically by visual line
+nnoremap j gj
+nnoremap k gk
+
+" highlight last inserted text
+nnoremap gV `[v`]
+" }}}
+
+" Tmux {{{
+" allows cursor change in tmux mode
+if exists('$TMUX')
+    let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
+    let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+else
+    let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+    let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+endif
+" }}}
+
+" Backups {{{
+" Enable backup support
+set backup
+set writebackup
 " Place backup/swp files somewhere else
 set backupdir=~/.vimtmp/backup
 set dir=~/.vimtmp/swp
+" }}}
 
+" Misc {{{
 " Ignore these files when tabbing
 set wildignore=*.o,*.pyc,*.hi,*.swp,*.class
-
-" Enable backspace to delete from insertion point
-set backspace=2
 
 " Sane splitting behavior
 set splitbelow
 set splitright
 
-let g:pymode_rope_complete_on_dot=0
-let g:pydiction_location='~/.vim/bundle/pydiction/complete-dict'
+set modelines=1 " Allow running vim commands embedded as comments
 
-" Everything related to syntax highlighting
-syntax on
+set hidden  " enable buffers with unsaved edits not displayed in a window
 
-" Default settings for tabbing
-set nosmartindent
-set expandtab tabstop=4 shiftwidth=4 softtabstop=4 autoindent
+" Ctags (doesn't ever seem to make a difference...)
+let Tlist_Ctags_Cmd="/usr/bin/ctags"
+" }}}
 
-set textwidth=80
-
-" Auto-completions
+" Autocompletion {{{
+" comes with vim
 set omnifunc=syntaxcomplete#Complete
 
-"""" Language specific settings
+" Python-specific, plugin required
+let g:pymode_rope_complete_on_dot=0
+let g:pydiction_location='~/.vim/bundle/pydiction/complete-dict'
+" }}}
+
+" Language specific autocmd {{{
 function DGSetIndent(spaces)
     """ Sets indentation. """
     let &tabstop=a:spaces
@@ -95,26 +197,14 @@ endfunction
 augroup lang_setup
     autocmd!
 
-    " NeoBundle
-    autocmd FileType coffee     NeoBundleSource "vim-coffee-script"
-    autocmd FileType go         NeoBundleSource "vim-go"
-    autocmd FileType haml       NeoBundleSource "vim-haml"
-    autocmd FileType jade       NeoBundleSource "vim-jade"
-    autocmd FileType javascript NeoBundleSource "vim-javascript"
-    autocmd FileType markdown   NeoBundleSource "vim-markdown"
-    autocmd FileType ocaml      NeoBundleSource "vim-ocaml"
-    autocmd FileType python     NeoBundleSource "pydiction"
-    autocmd FileType python     NeoBundleSource "python-mode"
-    autocmd FileType tex        NeoBundleSource "vim-latex"
-    autocmd FileType rust       NeoBundleSource "rust.vim"
-
-    " Auto-complete via omnifunc
+    " Autocompletions {{{
     autocmd Filetype css setlocal omnifunc=csscomplete#CompleteCSS
     autocmd Filetype html setlocal omnifunc=htmlcomplete#CompleteTags
     autocmd Filetype javascript setlocal omnifunc=javascriptcomplete#CompleteJS
     autocmd Filetype python setlocal omnifunc=pythoncomplete#Complete
+    " }}}
 
-    " Indentation
+    " Indentation {{{
     autocmd Filetype c          call DGSetIndent(4)
     autocmd Filetype css        call DGSetIndent(2)
     autocmd Filetype haskell    call DGSetIndent(2)
@@ -129,96 +219,49 @@ augroup lang_setup
 
     autocmd Filetype c setlocal cindent
 
-    " Misc
-    autocmd Filetype gitcommit setlocal tw=72
     autocmd Filetype c setlocal smarttab
     autocmd Filetype ruby setlocal nosmartindent
     autocmd Filetype python setlocal nosmartindent
     autocmd BufRead *.py setlocal nosmartindent
+    " }}}
+
+    " Text width {{{
+    autocmd Filetype gitcommit setlocal tw=72
+    autocmd Filetype markdown setlocal tw=80
+    " }}}
+
+    " ¯\_(ツ)_/¯ {{{
     autocmd Filetype html setlocal indentkeys-=*<Return>
     autocmd Filetype php setlocal indentkeys-=*<Return>
-    autocmd Filetype markdown setlocal tw=80
+    " }}}
 
 augroup END
+" }}}
 
-""""
-
-" View settings
-" colorscheme koehler
-set cursorline
-highlight CursorLine ctermbg=8 cterm=NONE
-set number      " Line numbers
-"set relativenumber
-set showcmd     " Show current command on status bar
-set ruler
-
-" Searching
-set incsearch
-set ignorecase
-set smartcase
-set hlsearch
-set showmatch
-
-
-"""" Miscellaneous
-
-set hidden
-
-" Show 80-character column
-set colorcolumn=80
-
-" Powerline settings
-" let g:Powerline_symbols = 'fancy'
-
-" vim-airline settings
+" vim-airline {{{
 set ttimeoutlen=50
 set laststatus=2
 set encoding=utf-8
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
+" }}}
 
-" Get rid of trailing whitespace in certain files
-autocmd FileType c,cpp,cc,html,css,py,hs,js,clj autocmd BufWritePre <buffer> :%s/\s\+$//e
-
-" Haskell settings
-au BufEnter *.hs compiler ghc
-" Configure browser for haskell_doc.vim
-let g:haddock_browser = "open"
-let g:haddock_browser_callformat = "%s %s"
-
-" OCaml settings
-let g:syntastic_ocaml_use_ocamlc = 1
-
-" Python settings
+" Plugin settings {{{
 let g:pymode_lint_checker = 'pyflakes,mccabe'
 let g:pymode_lint_ignore = 'E501,C0110'
 
-" Zen settings (for HTML+XML)
-let g:user_zen_settings = {
-\  'indentation': '  '
-\}
-
-" Map NERDTree to \t
-nmap <silent> <Leader>t :NERDTreeToggle<CR>
+" Arduino
+let g:vim_arduino_auto_open_serial = 1
 
 " LaTeX settings
 let g:tex_flavor='latex'
 
-" Ctag (doesn't ever seem to make a difference...)
-let Tlist_Ctags_Cmd="/usr/bin/ctags"
-
-" Automatically change current directory to current file
-" autocmd BufEnter * silent! lcd %:p:h
-
-" Keyboard remappings
-" gundo
+" Gundo keyboard remappings
 nnoremap <F5> :GundoToggle<CR>
-" :noh
-nnoremap <F9> :nohlsearch<CR>
+nnoremap <leader>u :GundoToggle<CR>
+" }}}
+
 " :YcmForceCompileAndDiagnostics
 nnoremap <S-F5> :YcmForceCompileAndDiagnostics<CR>
 
-" Solarized
-set background=light
-let g:solarized_contrast="high"
-colorscheme solarized
+" vim:foldmethod=marker:foldlevel=0
