@@ -256,6 +256,10 @@ let g:vim_arduino_auto_open_serial = 1
 " LaTeX settings
 let g:tex_flavor='latex'
 
+" Syntastic
+" HTML checker is super annoying
+let syntastic_mode_map = { 'passive_filetypes': ['html'] }
+
 " Gundo keyboard remappings
 nnoremap <F5> :GundoToggle<CR>
 nnoremap <leader>u :GundoToggle<CR>
@@ -264,4 +268,5 @@ nnoremap <leader>u :GundoToggle<CR>
 " :YcmForceCompileAndDiagnostics
 nnoremap <S-F5> :YcmForceCompileAndDiagnostics<CR>
 
+" vimrc setup inspired by https://dougblack.io/words/a-good-vimrc.html
 " vim:foldmethod=marker:foldlevel=0
