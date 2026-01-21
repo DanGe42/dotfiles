@@ -36,25 +36,25 @@ if dein#load_state('~/.vim/bundles')
     call dein#add('vim-latex/vim-latex')
     "call dein#add('vim-pandoc/vim-pandoc')
     "call dein#add('vim-pandoc/vim-pandoc-syntax')
-    call dein#add('jplaut/vim-arduino-ino')
 
     " Git integration
     call dein#add('tpope/vim-fugitive')
     " Add ending keyword for certain structures in certain languages
     call dein#add('tpope/vim-endwise')
 
-    " Syntax checking
-    call dein#add('vim-syntastic/syntastic')
+    " Asynchronous linting engine (replaces syntastic)
+    call dein#add('dense-analysis/ale')
+    " Fuzzy finder
+    call dein#add('junegunn/fzf', { 'build': './install --all' })
+    call dein#add('junegunn/fzf.vim')
     " Fuzzy-search completion engine
     " Set up with ./install.py
     "   --clang-completer for C-family languages
     "   --gocode-completer for Go
     "   --tern-completer for JS (requires Node + npm)
     call dein#add('Valloric/YouCompleteMe')
-    " Visualize vim undo tree
-    call dein#add('sjl/gundo.vim')
-    " Filesystem, buffer explorer
-    call dein#add('sjbach/lusty')
+    " Visualize vim undo tree (replaces gundo)
+    call dein#add('mbbill/undotree')
     " Alignment plugin
     call dein#add('junegunn/vim-easy-align')
     " Status/tabline
@@ -72,6 +72,10 @@ filetype plugin indent on
 if dein#check_install()
   call dein#install()
 endif
+
+" To remove old/unused plugins:
+" 1. Delete them from ~/.vim/bundles/repos/github.com/<author>/<plugin>
+" 2. Run :call dein#recache_runtimepath() to update the cache
 " }}}
 
 " Colors {{{
@@ -281,13 +285,21 @@ let g:vim_arduino_auto_open_serial = 1
 " LaTeX settings
 let g:tex_flavor='latex'
 
-" Syntastic
-" HTML checker is super annoying
-let syntastic_mode_map = { 'passive_filetypes': ['html'] }
+" ALE (Asynchronous Lint Engine)
+" Navigate between errors
+nmap <silent> [e <Plug>(ale_previous_wrap)
+nmap <silent> ]e <Plug>(ale_next_wrap)
 
-" Gundo keyboard remappings
-nnoremap <F5> :GundoToggle<CR>
-nnoremap <leader>u :GundoToggle<CR>
+" undotree keyboard remappings
+nnoremap <F5> :UndotreeToggle<CR>
+nnoremap <leader>u :UndotreeToggle<CR>
+
+" fzf.vim keyboard remappings
+nnoremap <C-p> :Files<CR>
+nnoremap <leader>f :Files<CR>
+nnoremap <leader>b :Buffers<CR>
+nnoremap <leader>r :Rg<CR>
+nnoremap <leader>l :Lines<CR>
 
 " https://github.com/Valloric/YouCompleteMe#the-gycm_server_python_interpreter-option
 " Uncomment and update path if YCM needs a specific Python interpreter
