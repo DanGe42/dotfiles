@@ -99,9 +99,6 @@ set autoindent      " copy indentation from previous line when starting new line
 " Editing behavior {{{
 set textwidth=80    " constrain to 80-character lines
 set backspace=2     " Enable backspace to delete from insertion point
-
-" Get rid of trailing whitespace in certain files
-autocmd FileType c,cpp,cc,html,css,py,hs,js,clj autocmd BufWritePre <buffer> :%s/\s\+$//e
 " }}}
 
 " UI Layout {{{
@@ -167,6 +164,23 @@ set writebackup
 " Place backup/swp files somewhere else
 set backupdir=~/.vimtmp/backup
 set dir=~/.vimtmp/swp
+
+" Create backup and swap directories if they don't exist
+if !isdirectory(expand(&backupdir))
+    call mkdir(expand(&backupdir), 'p', 0700)
+endif
+if !isdirectory(expand(&dir))
+    call mkdir(expand(&dir), 'p', 0700)
+endif
+
+" Persistent undo
+if has('persistent_undo')
+    set undofile
+    set undodir=~/.vimtmp/undo
+    if !isdirectory(expand(&undodir))
+        call mkdir(expand(&undodir), 'p', 0700)
+    endif
+endif
 " }}}
 
 " Misc {{{
@@ -204,6 +218,9 @@ endfunction
 
 augroup lang_setup
     autocmd!
+
+    " Get rid of trailing whitespace in certain files
+    autocmd BufWritePre *.c,*.cpp,*.cc,*.html,*.css,*.py,*.hs,*.js,*.clj :%s/\s\+$//e
 
     " Autocompletions {{{
     autocmd Filetype css setlocal omnifunc=csscomplete#CompleteCSS
@@ -271,6 +288,10 @@ let syntastic_mode_map = { 'passive_filetypes': ['html'] }
 " Gundo keyboard remappings
 nnoremap <F5> :GundoToggle<CR>
 nnoremap <leader>u :GundoToggle<CR>
+
+" https://github.com/Valloric/YouCompleteMe#the-gycm_server_python_interpreter-option
+" Uncomment and update path if YCM needs a specific Python interpreter
+" let g:ycm_server_python_interpreter = '/usr/bin/python3'
 " }}}
 
 " :YcmForceCompileAndDiagnostics
