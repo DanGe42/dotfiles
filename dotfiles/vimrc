@@ -1,7 +1,3 @@
-if &compatible
-    set nocompatible
-endif
-
 " dein.vim {{{
 " Auto-install dein.vim if not present
 let s:dein_dir = expand('~/.vim/bundles/repos/github.com/Shougo/dein.vim')
@@ -20,22 +16,17 @@ if dein#load_state('~/.vim/bundles')
     " Let dein manage dein
     call dein#add('~/.vim/bundles/repos/github.com/Shougo/dein.vim')
 
+    " dein UI
+    call dein#add('wsdjeg/dein-ui.vim')
+
     " Solarized
     call dein#add('altercation/vim-colors-solarized')
 
     " Language-specific
-    call dein#add('pangloss/vim-javascript')
-    call dein#add('tpope/vim-rails')
     " Highlights matching HTML tag when cursor is on a tag
     call dein#add('gregsexton/MatchTag')
-    " tab-complete Python code
-    call dein#add('rkulla/pydiction')
-    " pylint/rope/pyflakes/pep8/etc integration
-    call dein#add('klen/python-mode')
     call dein#add('fatih/vim-go')
     call dein#add('vim-latex/vim-latex')
-    "call dein#add('vim-pandoc/vim-pandoc')
-    "call dein#add('vim-pandoc/vim-pandoc-syntax')
 
     " Git integration
     call dein#add('tpope/vim-fugitive')
@@ -47,18 +38,12 @@ if dein#load_state('~/.vim/bundles')
     " Fuzzy finder
     call dein#add('junegunn/fzf', { 'build': './install --all' })
     call dein#add('junegunn/fzf.vim')
-    " Fuzzy-search completion engine
-    " Set up with ./install.py
-    "   --clang-completer for C-family languages
-    "   --gocode-completer for Go
-    "   --tern-completer for JS (requires Node + npm)
-    call dein#add('Valloric/YouCompleteMe')
     " Visualize vim undo tree (replaces gundo)
     call dein#add('mbbill/undotree')
     " Alignment plugin
     call dein#add('junegunn/vim-easy-align')
     " Status/tabline
-    call dein#add('bling/vim-airline')
+    call dein#add('vim-airline/vim-airline')
     " Highlight trailing whitespace
     call dein#add('bronson/vim-trailing-whitespace')
 
@@ -197,19 +182,15 @@ set splitright
 
 set modelines=1 " Allow running vim commands embedded as comments
 
-set hidden  " enable buffers with unsaved edits not displayed in a window
+" Enable mouse
+set mouse=a
 
-" Ctags (doesn't ever seem to make a difference...)
-let Tlist_Ctags_Cmd="/usr/bin/ctags"
+set hidden  " enable buffers with unsaved edits not displayed in a window
 " }}}
 
 " Autocompletion {{{
 " comes with vim
 set omnifunc=syntaxcomplete#Complete
-
-" Python-specific, plugin required
-let g:pymode_rope_complete_on_dot=0
-let g:pydiction_location='~/.vim/bundle/pydiction/complete-dict'
 " }}}
 
 " Language specific autocmd {{{
@@ -276,12 +257,6 @@ let g:airline#extensions#tabline#enabled = 1
 " }}}
 
 " Plugin settings {{{
-let g:pymode_lint_checker = 'pyflakes,mccabe'
-let g:pymode_lint_ignore = 'E501,C0110'
-
-" Arduino
-let g:vim_arduino_auto_open_serial = 1
-
 " LaTeX settings
 let g:tex_flavor='latex'
 
@@ -300,14 +275,7 @@ nnoremap <leader>f :Files<CR>
 nnoremap <leader>b :Buffers<CR>
 nnoremap <leader>r :Rg<CR>
 nnoremap <leader>l :Lines<CR>
-
-" https://github.com/Valloric/YouCompleteMe#the-gycm_server_python_interpreter-option
-" Uncomment and update path if YCM needs a specific Python interpreter
-" let g:ycm_server_python_interpreter = '/usr/bin/python3'
 " }}}
-
-" :YcmForceCompileAndDiagnostics
-nnoremap <S-F5> :YcmForceCompileAndDiagnostics<CR>
 
 " vimrc setup inspired by https://dougblack.io/words/a-good-vimrc.html
 " vim:foldmethod=marker:foldlevel=0
