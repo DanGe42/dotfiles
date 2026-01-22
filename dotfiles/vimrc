@@ -1,75 +1,17 @@
-" dein.vim {{{
-" Auto-install dein.vim if not present
-let s:dein_dir = expand('~/.vim/bundles/repos/github.com/Shougo/dein.vim')
-if !isdirectory(s:dein_dir)
-    echo "Installing dein.vim..."
-    call system('mkdir -p ' . shellescape(fnamemodify(s:dein_dir, ':h')))
-    call system('git clone https://github.com/Shougo/dein.vim.git ' . shellescape(s:dein_dir))
-endif
+" Pure VimScript configuration
+" Works on both Vim and Neovim
+" Plugin management handled by Neovim init.vim when using Neovim
 
-set runtimepath+=~/.vim/bundles/repos/github.com/Shougo/dein.vim
-
-" Required:
-if dein#load_state('~/.vim/bundles')
-    call dein#begin('~/.vim/bundles')
-
-    " Let dein manage dein
-    call dein#add('~/.vim/bundles/repos/github.com/Shougo/dein.vim')
-
-    " dein UI
-    call dein#add('wsdjeg/dein-ui.vim')
-
-    " Solarized
-    call dein#add('altercation/vim-colors-solarized')
-
-    " Language-specific
-    " Highlights matching HTML tag when cursor is on a tag
-    call dein#add('gregsexton/MatchTag')
-    call dein#add('fatih/vim-go')
-    call dein#add('vim-latex/vim-latex')
-
-    " Git integration
-    call dein#add('tpope/vim-fugitive')
-    " Add ending keyword for certain structures in certain languages
-    call dein#add('tpope/vim-endwise')
-
-    " Asynchronous linting engine (replaces syntastic)
-    call dein#add('dense-analysis/ale')
-    " Fuzzy finder
-    call dein#add('junegunn/fzf', { 'build': './install --all' })
-    call dein#add('junegunn/fzf.vim')
-    " Visualize vim undo tree (replaces gundo)
-    call dein#add('mbbill/undotree')
-    " Alignment plugin
-    call dein#add('junegunn/vim-easy-align')
-    " Status/tabline
-    call dein#add('vim-airline/vim-airline')
-    " Highlight trailing whitespace
-    call dein#add('bronson/vim-trailing-whitespace')
-
-    call dein#end()
-    call dein#save_state()
-endif
-
+" Enable filetype detection and plugins
 filetype plugin indent on
-
-" If you want to install not installed plugins on startup.
-if dein#check_install()
-  call dein#install()
-endif
-
-" To remove old/unused plugins:
-" 1. Delete them from ~/.vim/bundles/repos/github.com/<author>/<plugin>
-" 2. Run :call dein#recache_runtimepath() to update the cache
-" }}}
 
 " Colors {{{
 syntax enable
 
 " Solarized
-set background=light
-let g:solarized_contrast="high"
-colorscheme solarized
+" set background=light
+" let g:solarized_contrast="high"
+" colorscheme solarized
 " }}}
 
 " Spaces and Tabs {{{
@@ -246,35 +188,6 @@ augroup lang_setup
     " }}}
 
 augroup END
-" }}}
-
-" vim-airline {{{
-set ttimeoutlen=50
-set laststatus=2
-set encoding=utf-8
-let g:airline_powerline_fonts = 1
-let g:airline#extensions#tabline#enabled = 1
-" }}}
-
-" Plugin settings {{{
-" LaTeX settings
-let g:tex_flavor='latex'
-
-" ALE (Asynchronous Lint Engine)
-" Navigate between errors
-nmap <silent> [e <Plug>(ale_previous_wrap)
-nmap <silent> ]e <Plug>(ale_next_wrap)
-
-" undotree keyboard remappings
-nnoremap <F5> :UndotreeToggle<CR>
-nnoremap <leader>u :UndotreeToggle<CR>
-
-" fzf.vim keyboard remappings
-nnoremap <C-p> :Files<CR>
-nnoremap <leader>f :Files<CR>
-nnoremap <leader>b :Buffers<CR>
-nnoremap <leader>r :Rg<CR>
-nnoremap <leader>l :Lines<CR>
 " }}}
 
 " vimrc setup inspired by https://dougblack.io/words/a-good-vimrc.html
