@@ -4,6 +4,13 @@ local cmp = require("cmp")
 
 -- REQUIRED: Basic setup
 cmp.setup({
+  -- Disable completion in git commit messages
+  enabled = function()
+    local filetype = vim.bo.filetype
+    if filetype == 'gitcommit' then return false end
+    return true
+  end,
+
   -- REQUIRED: Snippet engine
   snippet = {
     expand = function(args)
