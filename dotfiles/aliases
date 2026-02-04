@@ -6,10 +6,7 @@ alias less='less -r'
 
 alias vi='vim'
 alias vim='nvim'
-alias matlab='/Applications/MATLAB_R2014b.app/bin/matlab -nojvm -nodisplay -nosplash'
 
-alias pg-start='pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start'
-alias pg-stop='pg_ctl -D /usr/local/var/postgres stop -s -m fast'
-alias wget-dl='wget -m -k -p -np'
+alias tmux='tmux -CC attach || tmux -CC'
 
-alias tmux='tmux attach || tmux'
+alias remove_color="sed -E \"s/\"$'\E'\"\[([0-9]{1,3}((;[0-9]{1,3})*)?)?[m|K]//g\""
