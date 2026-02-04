@@ -53,7 +53,7 @@ setup_zsh() {
     if [ "$MODE" = "home" ]; then
         safe_ln "$PWD/dotfiles/zshrc" ~/.zshrc
     elif [ "$MODE" = "work" ]; then
-        safe_ln "$PWD/dotfiles/osx/zshrc" ~/.zshrc
+        safe_ln "$PWD/dotfiles/work/square/zshrc" ~/.zshrc
     fi
 
     safe_ln "$PWD/dotfiles/aliases" ~/.aliases
