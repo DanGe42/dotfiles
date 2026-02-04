@@ -49,7 +49,13 @@ setup_themes() {
 setup_zsh() {
     echo "=== Setting up ZSH ==="
     safe_clone https://github.com/tarjoilija/zgen ~/bin/zgen
-    safe_ln "$PWD/dotfiles/zshrc" ~/.zshrc
+
+    if [ "$MODE" = "home" ]; then
+        safe_ln "$PWD/dotfiles/zshrc" ~/.zshrc
+    elif [ "$MODE" = "work" ]; then
+        safe_ln "$PWD/dotfiles/osx/zshrc" ~/.zshrc
+    fi
+
     safe_ln "$PWD/dotfiles/aliases" ~/.aliases
 }
 
@@ -72,6 +78,22 @@ setup_vim() {
 echo "Initializing and updating submodules first..."
 git submodule init
 git submodule update
+
+# Parse mode (required first argument)
+if [ $# -eq 0 ]; then
+    echo "Error: mode argument required"
+    echo "Usage: $0 <home|work> [subcommand...]"
+    echo "Available subcommands: z, tmux, themes, zsh, git, vim, all"
+    exit 1
+fi
+
+MODE="$1"
+if [ "$MODE" != "home" ] && [ "$MODE" != "work" ]; then
+    echo "Error: first argument must be 'home' or 'work'"
+    echo "Usage: $0 <home|work> [subcommand...]"
+    exit 1
+fi
+shift
 
 # Parse subcommands
 if [ $# -eq 0 ] || [ "$1" = "all" ]; then
