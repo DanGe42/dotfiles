@@ -15,12 +15,13 @@ if has('nvim')
   " Plugin management (lazy.nvim) - this will also configure LSP and completion
   lua require('plugins')
 
-  " Optional: Treesitter (uncomment when ready)
-  " lua require('treesitter')
-
   " ========================================================================
   " Plugin-specific settings (VimScript)
   " ========================================================================
+
+  " Override .vimrc fold settings with Treesitter-based folding
+  set foldmethod=expr
+  set foldexpr=v:lua.vim.treesitter.foldexpr()
 
   " vim-airline
   set ttimeoutlen=50

@@ -72,6 +72,8 @@ setup_vim() {
     # Neovim specific setup
     mkdir -p ~/.config
     safe_ln "$PWD/dotfiles/nvim" ~/.config/nvim
+
+    echo "‼️ Reminder: tree-sitter-cli is required for full nvim functionality"
 }
 
 # Always update submodules first

@@ -43,10 +43,14 @@ require("lazy").setup({
   -- =========================================================================
   -- Treesitter (optional - better syntax highlighting)
   -- =========================================================================
-  -- {
-  --   "nvim-treesitter/nvim-treesitter",
-  --   build = ":TSUpdate",
-  -- },
+  {
+    "nvim-treesitter/nvim-treesitter",
+    lazy = false,
+    build = ":TSUpdate",
+    config = function()
+      require('treesitter')
+    end,
+  },
 
   -- =========================================================================
   -- Traditional plugins (VimScript-based, work in Vim and Neovim)
