@@ -1,40 +1,26 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 ### Common ZSH setup (universal) ###
 
-# oh-my-zsh configuration
-ZSH=$HOME/.oh-my-zsh
-ZSH_THEME="danielge"
-USE_OH_MY_ZSH=true
+# Prompt (powerlevel10k)
+source /opt/homebrew/opt/powerlevel10k/share/powerlevel10k/powerlevel10k.zsh-theme
+[[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
+
+# Completions (bazel, brew, etc. via Homebrew)
+fpath=(/opt/homebrew/share/zsh/site-functions $fpath)
+autoload -Uz compinit
+compinit
+zstyle ':completion:*' menu select
 
 source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-if [ $USE_OH_MY_ZSH = 'true' ]; then
-    COMPLETION_WAITING_DOTS="true"
+# Treat /, ., etc. as word boundaries for ctrl-w
+WORDCHARS='*?_-[]~=&;!#$%^(){}<>'
 
-    # Auto-update configuration: don't auto-update, but remind every 2 weeks
-    zstyle ':omz:update' mode reminder
-    zstyle ':omz:update' frequency 14
-
-    plugins=(bazel brew)
-    source $ZSH/oh-my-zsh.sh
-    unsetopt correct_all
-
-else
-    if [ ! "$ZSH_THEME" = ""  ]; then
-        if [ -f "$ZSH_CUSTOM/$ZSH_THEME.zsh-theme" ]; then
-            source "$ZSH_CUSTOM/$ZSH_THEME.zsh-theme"
-        elif [ -f "$ZSH_CUSTOM/themes/$ZSH_THEME.zsh-theme" ]; then
-            source "$ZSH_CUSTOM/themes/$ZSH_THEME.zsh-theme"
-        else
-            source "$ZSH/themes/$ZSH_THEME.zsh-theme"
-        fi
-    fi
-fi
-
-# Override git_prompt_info to avoid always checking for clean directory
-function git_prompt_info() {
-  ref=$(git symbolic-ref HEAD 2> /dev/null) || return
-  echo "$ZSH_THEME_GIT_PROMPT_PREFIX${ref#refs/heads/}${ZSH_THEME_GIT_PROMPT_CLEAN}${ZSH_THEME_GIT_PROMPT_SUFFIX}"
-}
+unsetopt correct_all
 
 source ~/bin/z.sh
 
