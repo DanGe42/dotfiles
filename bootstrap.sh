@@ -55,6 +55,9 @@ setup_zsh() {
     elif [ "$MODE" = "work" ]; then
         safe_ln "$PWD/dotfiles/work/square/zshrc" ~/.zshrc
     fi
+    safe_ln "$PWD/dotfiles/p10k.zsh" ~/.p10k.zsh
+    echo "‼️ Reminder: zsh-syntax-highlighting is required for zshrc"
+    echo "‼️ Reminder: powerlevel10k is required for zshrc+p10k"
 
     safe_ln "$PWD/dotfiles/aliases" ~/.aliases
 }
