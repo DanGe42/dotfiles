@@ -22,6 +22,11 @@ WORDCHARS='*?_-[]~=&;!#$%^(){}<>'
 
 unsetopt correct_all
 
+# Colorize `ls` output
+export CLICOLOR=1
+# ls color pallette
+export LSCOLORS=ExfxBxDxCxegedabagacad
+
 source ~/bin/z.sh
 
 # Start an HTTP server from a directory, optionally specifying the port
