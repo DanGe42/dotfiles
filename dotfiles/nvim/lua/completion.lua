@@ -4,10 +4,10 @@ local cmp = require("cmp")
 
 -- REQUIRED: Basic setup
 cmp.setup({
-  -- Disable completion in git commit messages
+  -- Disable completion in filetypes where popup suggestions are noisy
   enabled = function()
     local filetype = vim.bo.filetype
-    if filetype == 'gitcommit' then return false end
+    if filetype == 'gitcommit' or filetype == 'markdown' then return false end
     return true
   end,
 
@@ -22,7 +22,7 @@ cmp.setup({
   mapping = cmp.mapping.preset.insert({
     ['<Tab>'] = cmp.mapping.select_next_item(),      -- Tab to next item
     ['<S-Tab>'] = cmp.mapping.select_prev_item(),    -- Shift-Tab to previous
-    ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Enter to confirm
+    ['<CR>'] = cmp.mapping.confirm({ select = false }), -- Enter only confirms an explicit selection
     ['<C-Space>'] = cmp.mapping.complete(),          -- Ctrl-Space to trigger
     ['<C-e>'] = cmp.mapping.abort(),                 -- Ctrl-e to close
   }),
