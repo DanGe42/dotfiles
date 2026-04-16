@@ -165,21 +165,28 @@ augroup lang_setup
     autocmd Filetype javascript call DGSetIndent(2)
     autocmd Filetype ocaml      call DGSetIndent(2)
     autocmd Filetype php        call DGSetIndent(2)
+    autocmd Filetype eruby      call DGSetIndent(2)
     autocmd Filetype ruby       call DGSetIndent(2)
+    autocmd Filetype yaml       call DGSetIndent(2)
     autocmd Filetype tex        call DGSetIndent(4)
     autocmd Filetype verilog    call DGSetIndent(3)
 
     autocmd Filetype c setlocal cindent
 
     autocmd Filetype c setlocal smarttab
+    autocmd Filetype eruby setlocal nosmartindent
     autocmd Filetype ruby setlocal nosmartindent
     autocmd Filetype python setlocal nosmartindent
+    autocmd Filetype yaml setlocal nosmartindent
     autocmd BufRead *.py setlocal nosmartindent
     " }}}
 
     " Text width {{{
     autocmd Filetype gitcommit setlocal tw=72
     autocmd Filetype markdown setlocal tw=80
+    autocmd Filetype eruby setlocal tw=0
+    autocmd Filetype ruby setlocal tw=0
+    autocmd Filetype yaml setlocal tw=0
     " }}}
 
     " ¯\_(ツ)_/¯ {{{

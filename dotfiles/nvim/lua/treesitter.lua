@@ -3,7 +3,8 @@
 -- Desired parsers - install missing ones only
 local desired_parsers = {
   "c", "lua", "python", "go", "javascript", "html", "css",
-  "bash", "json", "yaml", "markdown", "hcl", "terraform", "latex",
+  "bash", "json", "yaml", "markdown", "hcl", "terraform", "latex", "java",
+  "ruby", "embedded_template", "sql",
 }
 
 local missing = {}

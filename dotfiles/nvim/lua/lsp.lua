@@ -3,14 +3,20 @@
 -- Mason setup (installs and manages LSP servers)
 require("mason").setup()
 
--- Auto-install these LSP servers
-local servers = { "lua_ls", "pyright", "gopls" }
+-- Auto-install these LSP servers via Mason package names.
+local mason_packages = {
+  "lua-language-server",
+  "pyright",
+  "gopls",
+  "jdtls",
+  "ruby-lsp",
+}
 
 local mason_registry = require("mason-registry")
-for _, server_name in ipairs(servers) do
-  local ok, server = pcall(mason_registry.get_package, server_name)
-  if ok and not server:is_installed() then
-    server:install()
+for _, package_name in ipairs(mason_packages) do
+  local ok, package = pcall(mason_registry.get_package, package_name)
+  if ok and not package:is_installed() then
+    package:install()
   end
 end
 
@@ -18,12 +24,18 @@ end
 vim.api.nvim_create_autocmd('LspAttach', {
   callback = function(args)
     local opts = { buffer = args.buf, silent = true }
+    local client = vim.lsp.get_client_by_id(args.data.client_id)
 
     vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
     vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
     vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
+    vim.keymap.set('n', 'gl', vim.diagnostic.open_float, opts)
     vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
     vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
+
+    if client and client.name == 'ruby_lsp' then
+      vim.keymap.set('n', '<leader>cf', vim.lsp.buf.format, opts)
+    end
   end,
 })
 
@@ -42,6 +54,26 @@ vim.lsp.config('lua_ls', {
 
 vim.lsp.config('pyright', { capabilities = capabilities })
 vim.lsp.config('gopls', { capabilities = capabilities })
+vim.lsp.config('jdtls', {
+  capabilities = capabilities,
+  root_markers = {
+    ".git",
+    "mvnw",
+    "gradlew",
+    "pom.xml",
+    "build.gradle",
+    "build.gradle.kts",
+  },
+})
+vim.lsp.config('ruby_lsp', {
+  capabilities = capabilities,
+  cmd = { 'ruby-lsp' },
+  root_markers = {
+    'Gemfile',
+    '.ruby-version',
+    '.git',
+  },
+})
 
 -- Enable the servers
-vim.lsp.enable({ 'lua_ls', 'pyright', 'gopls' })
+vim.lsp.enable({ 'lua_ls', 'pyright', 'gopls', 'jdtls', 'ruby_lsp' })

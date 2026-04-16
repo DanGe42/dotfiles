@@ -20,6 +20,7 @@ require("lazy").setup({
     "williamboman/mason.nvim",
     build = ":MasonUpdate",
   },
+  { "neovim/nvim-lspconfig" },
 
   -- =========================================================================
   -- Completion
@@ -33,6 +34,7 @@ require("lazy").setup({
       "L3MON4D3/LuaSnip",        -- Snippet engine
       "saadparwaiz1/cmp_luasnip", -- LuaSnip completion source
       "williamboman/mason.nvim", -- LSP needs mason too
+      "neovim/nvim-lspconfig",   -- Server definitions for vim.lsp
     },
     config = function()
       require('completion')  -- Setup completion first
@@ -74,6 +76,7 @@ require("lazy").setup({
   -- Utility
   { "mbbill/undotree" },
   { "junegunn/vim-easy-align" },
+  { "vim-test/vim-test" },
 
   -- Language-specific
   { "vim-latex/vim-latex" },

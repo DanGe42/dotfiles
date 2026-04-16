@@ -37,6 +37,14 @@ if has('nvim')
   nnoremap <F5> :UndotreeToggle<CR>
   nnoremap <leader>u :UndotreeToggle<CR>
 
+  " vim-test
+  let test#strategy = 'neovim_sticky'
+  nnoremap <leader>tn :TestNearest<CR>
+  nnoremap <leader>tf :TestFile<CR>
+  nnoremap <leader>ts :TestSuite<CR>
+  nnoremap <leader>tl :TestLast<CR>
+  nnoremap <leader>tv :TestVisit<CR>
+
   " fzf.vim
   nnoremap <C-p> :Files<CR>
   nnoremap <leader>f :Files<CR>
