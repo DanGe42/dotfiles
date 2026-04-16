@@ -45,3 +45,5 @@ export PATH="$HOME/bin:$PATH"
 export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+command -v mise >/dev/null 2>&1 && eval "$(mise activate zsh)"
