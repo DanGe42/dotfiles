@@ -20,11 +20,14 @@ if #missing > 0 then
 end
 
 -- Enable Treesitter highlighting and indentation for all file types
+-- Ruby/ERB use Neovim's built-in indenter: treesitter indent for Ruby is buggy.
+local ts_indent_exclude = { ruby = true, eruby = true }
 vim.api.nvim_create_autocmd("FileType", {
   callback = function()
-    -- Only enable if a parser exists for this filetype
     if pcall(vim.treesitter.start) then
-      vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+      if not ts_indent_exclude[vim.bo.filetype] then
+        vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+      end
     end
   end,
 })

@@ -174,8 +174,6 @@ augroup lang_setup
     autocmd Filetype c setlocal cindent
 
     autocmd Filetype c setlocal smarttab
-    autocmd Filetype eruby setlocal nosmartindent
-    autocmd Filetype ruby setlocal nosmartindent
     autocmd Filetype python setlocal nosmartindent
     autocmd Filetype yaml setlocal nosmartindent
     autocmd BufRead *.py setlocal nosmartindent
