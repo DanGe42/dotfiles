@@ -81,4 +81,18 @@ require("lazy").setup({
   -- Language-specific
   { "vim-latex/vim-latex" },
   { "gregsexton/MatchTag" },
+
+  -- =========================================================================
+  -- AI
+  -- =========================================================================
+  {
+    "coder/claudecode.nvim",
+    cmd = { "ClaudeCode", "ClaudeCodeOpen", "ClaudeCodeClose", "ClaudeCodeSend" },
+    opts = {},
+    keys = {
+      { "<leader>ac", "<cmd>ClaudeCode<cr>",     desc = "Toggle Claude" },
+      { "<leader>ab", "<cmd>ClaudeCodeAdd<cr>",  desc = "Add buffer to Claude" },
+      { "<leader>as", "<cmd>ClaudeCodeSend<cr>", desc = "Send selection to Claude", mode = "v" },
+    },
+  },
 })
