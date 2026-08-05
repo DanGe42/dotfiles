@@ -14,6 +14,48 @@ vim.opt.rtp:prepend(lazypath)
 -- Plugin specifications
 require("lazy").setup({
   -- =========================================================================
+  -- Colorscheme
+  -- =========================================================================
+  {
+    "maxmx03/solarized.nvim",
+    lazy = false,
+    priority = 1000,
+    opts = {
+      palette = "solarized",
+      variant = "autumn",
+      on_highlights = function(colors)
+        local highlights = {
+          SolarizedWinterKeyword = { fg = colors.base01, bold = true },
+        }
+
+        for _, capture in ipairs({
+          "@keyword.ruby",
+          "@keyword.conditional.ruby",
+          "@keyword.directive.ruby",
+          "@keyword.exception.ruby",
+          "@keyword.function.ruby",
+          "@keyword.import.ruby",
+          "@keyword.modifier.ruby",
+          "@keyword.operator.ruby",
+          "@keyword.repeat.ruby",
+          "@keyword.return.ruby",
+          "@keyword.type.ruby",
+        }) do
+          highlights[capture] = { link = "SolarizedWinterKeyword" }
+        end
+
+        return highlights
+      end,
+    },
+    config = function(_, opts)
+      vim.opt.termguicolors = true
+      vim.opt.background = "light"
+      require("solarized").setup(opts)
+      vim.cmd.colorscheme("solarized")
+    end,
+  },
+
+  -- =========================================================================
   -- LSP Support (using native Neovim 0.11+ LSP)
   -- =========================================================================
   {
