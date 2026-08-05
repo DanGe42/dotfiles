@@ -95,4 +95,63 @@ require("lazy").setup({
       { "<leader>as", "<cmd>ClaudeCodeSend<cr>", desc = "Send selection to Claude", mode = "v" },
     },
   },
+  {
+    "folke/sidekick.nvim",
+    opts = {
+      nes = {
+        enabled = false,
+      },
+      copilot = {
+        status = {
+          enabled = false,
+        },
+      },
+      cli = {
+        watch = false,
+        mux = {
+          enabled = false,
+        },
+        win = {
+          layout = "right",
+          split = {
+            width = 80,
+          },
+        },
+      },
+    },
+    keys = {
+      {
+        "<leader>xc",
+        function()
+          require("sidekick.cli").toggle({
+            name = "codex",
+            focus = true,
+          })
+        end,
+        desc = "Toggle Codex",
+      },
+      {
+        "<leader>xf",
+        function()
+          require("sidekick.cli").show({
+            name = "codex",
+            focus = true,
+          })
+        end,
+        desc = "Focus Codex",
+      },
+      {
+        "<leader>xs",
+        function()
+          require("sidekick.cli").send({
+            name = "codex",
+            msg = "{position}\n{selection}",
+            focus = false,
+          })
+        end,
+        desc = "Send selection to Codex",
+        mode = "x",
+      },
+    },
+  },
 })
