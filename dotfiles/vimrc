@@ -183,7 +183,7 @@ augroup lang_setup
     autocmd Filetype gitcommit setlocal tw=72
     autocmd Filetype markdown setlocal tw=80
     autocmd Filetype eruby setlocal tw=0
-    autocmd Filetype ruby setlocal tw=0
+    autocmd Filetype ruby setlocal tw=100 colorcolumn=100
     autocmd Filetype yaml setlocal tw=0
     " }}}
 
