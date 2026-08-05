@@ -22,6 +22,15 @@ WORDCHARS='*?_-[]~=&;!#$%^(){}<>'
 
 unsetopt correct_all
 
+# History: share live between all running shells
+HISTFILE=~/.zsh_history
+HISTSIZE=100000        # commands kept in memory per session
+SAVEHIST=100000        # commands persisted to $HISTFILE
+setopt SHARE_HISTORY        # write/import incrementally so concurrent shells see each other's history
+setopt HIST_IGNORE_DUPS     # don't record a command identical to the previous one
+setopt HIST_IGNORE_SPACE    # don't record commands typed with a leading space
+setopt HIST_REDUCE_BLANKS   # trim superfluous whitespace before recording
+
 # Colorize `ls` output
 export CLICOLOR=1
 # ls color pallette
