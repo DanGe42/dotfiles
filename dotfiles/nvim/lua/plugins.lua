@@ -173,7 +173,7 @@ require("lazy").setup({
         desc = "Toggle Codex",
       },
       {
-        "<leader>xf",
+        "<leader>xx",
         function()
           require("sidekick.cli").show({
             name = "codex",
