@@ -10,6 +10,8 @@ if not vim.loop.fs_stat(lazypath) then
   })
 end
 vim.opt.rtp:prepend(lazypath)
+vim.opt.rtp:prepend(vim.fn.stdpath("config") .. "/codex_ide")
+require("codex_ide").setup()
 
 -- Plugin specifications
 require("lazy").setup({
@@ -139,28 +141,23 @@ require("lazy").setup({
   },
   {
     "folke/sidekick.nvim",
-    opts = {
-      nes = {
-        enabled = false,
-      },
-      copilot = {
-        status = {
-          enabled = false,
-        },
-      },
-      cli = {
-        watch = false,
-        mux = {
-          enabled = false,
-        },
-        win = {
-          layout = "right",
-          split = {
-            width = 80,
+    init = function() require("codex_ide.sidekick").setup() end,
+    opts = function()
+      return {
+        -- General Sidekick preferences belong here.  Codex's private
+        -- CODEX_HOME and process matching live with the IDE provider.
+        nes = { enabled = false },
+        copilot = { status = { enabled = false } },
+        cli = {
+          tools = {
+            codex = require("codex_ide.sidekick").codex_tool_options(),
           },
+          watch = false,
+          mux = { enabled = false },
+          win = { layout = "right", split = { width = 80 } },
         },
-      },
-    },
+      }
+    end,
     keys = {
       {
         "<leader>xc",
